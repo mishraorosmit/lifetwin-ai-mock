@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platform Analytics — LifeTwin AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../CSS/main.css">
+    <link rel="stylesheet" href="../CSS/components.css">
+    <link rel="stylesheet" href="../CSS/dashboard.css">
+</head>
+
+<body>
+    <div class="app">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar__brand">
+                <div class="sidebar__logo">LT</div><span class="sidebar__name">LifeTwin <span>AI</span></span>
+            </div>
+            <nav class="sidebar__nav">
+                <div class="sidebar__section">Main</div>
+                <a href="dashboard.html" class="sidebar__link"><i class="bi bi-grid-1x2"></i><span>Dashboard</span></a>
+                <a href="simulation.html" class="sidebar__link"><i class="bi bi-capsule"></i><span>Simulation
+                        Lab</span></a>
+                <a href="insights.html" class="sidebar__link"><i class="bi bi-heart-pulse"></i><span>Health
+                        Insights</span></a>
+                <div class="sidebar__section">Data</div>
+                <a href="profile.html" class="sidebar__link"><i class="bi bi-person-circle"></i><span>My
+                        Profile</span></a>
+                <a href="#" class="sidebar__link"><i class="bi bi-file-earmark-text"></i><span>Reports</span></a>
+                <a href="#" class="sidebar__link"><i class="bi bi-clock-history"></i><span>History</span></a>
+                <div class="sidebar__section">Admin</div>
+                <a href="admin.html" class="sidebar__link"><i class="bi bi-shield"></i><span>Admin Panel</span></a>
+                <a href="analytics.html" class="sidebar__link active"><i
+                        class="bi bi-bar-chart-line"></i><span>Analytics</span></a>
+            </nav>
+            <div class="sidebar__footer">
+                <div class="sidebar__user">
+                    <div class="sidebar__avatar">LT</div>
+                    <div>
+                        <div class="sidebar__user-name">Admin</div>
+                        <div class="sidebar__user-role">Administrator</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <div class="app__body" id="appBody">
+            <header class="navbar" id="navbar">
+                <button class="navbar__toggle" id="sidebarToggle"><i class="bi bi-list"></i></button>
+                <div class="navbar__search"><i class="bi bi-search"></i><input type="text" placeholder="Search...">
+                </div>
+                <div class="navbar__actions">
+                    <button class="navbar__btn"><i class="bi bi-bell"></i><span class="navbar__badge"></span></button>
+                    <div class="navbar__profile" id="avatarBtn">
+                        <div class="navbar__avatar">AD</div>
+                        <div class="navbar__dropdown" id="userDropdown"><a href="profile.html"><i
+                                    class="bi bi-person"></i> Profile</a><a href="#"><i class="bi bi-gear"></i>
+                                Settings</a>
+                            <hr><a href="login.html"><i class="bi bi-box-arrow-right"></i> Sign Out</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="main">
+                <div class="page-header">
+                    <div>
+                        <h1>Platform Analytics</h1>
+                        <p>Usage metrics, engagement trends, and platform health data</p>
+                    </div>
+                    <div class="page-header__actions">
+                        <select class="form-select" id="analyticsRange"
+                            style="height:40px;width:180px;font-size:var(--fs-sm);">
+                            <option value="7d">Last 7 Days</option>
+                            <option value="30d" selected>Last 30 Days</option>
+                            <option value="90d">Last 90 Days</option>
+                            <option value="1y">Last Year</option>
+                        </select>
+                        <button class="btn btn--secondary"><i class="bi bi-download"></i> Export</button>
+                    </div>
+                </div>
+
+                <!-- Key Metrics -->
+                <div class="grid grid--4 mb-8">
+                    <div class="stat-card">
+                        <div class="stat-card__icon stat-card__icon--forest"><i class="bi bi-person-plus"></i></div>
+                        <span class="stat-card__label">New Signups</span><span class="stat-card__value">384</span><span
+                            class="stat-card__change stat-card__change--up">&#9650; 18.2%</span>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card__icon stat-card__icon--sage"><i class="bi bi-capsule"></i></div><span
+                            class="stat-card__label">Total Simulations</span><span
+                            class="stat-card__value">12,847</span><span
+                            class="stat-card__change stat-card__change--up">&#9650; 24.6%</span>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card__icon stat-card__icon--info"><i class="bi bi-clock"></i></div><span
+                            class="stat-card__label">Avg. Session</span><span class="stat-card__value">8.4m</span><span
+                            class="stat-card__change stat-card__change--up">&#9650; 1.2m</span>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card__icon stat-card__icon--warning"><i class="bi bi-percent"></i></div><span
+                            class="stat-card__label">Retention Rate</span><span class="stat-card__value">67%</span><span
+                            class="stat-card__change stat-card__change--down">&#9660; 2.1%</span>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="grid grid--2 mb-8">
+                    <div class="card">
+                        <div class="card__header">
+                            <h3 class="card__title">User Growth</h3><span class="card__action">Monthly</span>
+                        </div>
+                        <div class="card__body">
+                            <div class="chart-container"><canvas id="userGrowthChart"></canvas></div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__header">
+                            <h3 class="card__title">Simulation Volume</h3><span class="card__action">Daily</span>
+                        </div>
+                        <div class="card__body">
+                            <div class="chart-container"><canvas id="simVolumeChart"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid--2 mb-8">
+                    <div class="card">
+                        <div class="card__header">
+                            <h3 class="card__title">Health Score Distribution</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="chart-container"><canvas id="scoreDistChart"></canvas></div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__header">
+                            <h3 class="card__title">Feature Usage</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="chart-container"><canvas id="featureUsageChart"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Population Health Charts -->
+                <div class="grid grid--3 mb-8">
+                    <div class="card">
+                        <div class="card__header">
+                            <h3 class="card__title"><i class="bi bi-moon-stars"
+                                    style="color:var(--color-accent-main);margin-right:var(--sp-2);"></i>Average Sleep
+                                Trends</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="chart-container"><canvas id="sleepTrendsChart"></canvas></div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__header">
+                            <h3 class="card__title"><i class="bi bi-emoji-dizzy"
+                                    style="color:var(--c-warning);margin-right:var(--sp-2);"></i>Stress Index
+                                Distribution</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="chart-container"><canvas id="stressDistChart"></canvas></div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__header">
+                            <h3 class="card__title"><i class="bi bi-lightning-charge"
+                                    style="color:var(--color-accent-strong);margin-right:var(--sp-2);"></i>Exercise
+                                Frequency</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="chart-container"><canvas id="exerciseFreqChart"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Popular Scenarios Table -->
+                <div class="card">
+                    <div class="card__header">
+                        <h3 class="card__title">Most Popular Simulation Scenarios</h3>
+                    </div>
+                    <div class="card__body" style="padding:0;">
+                        <div class="table-wrap">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Scenario</th>
+                                        <th>Runs</th>
+                                        <th>Avg. Impact</th>
+                                        <th>Trend</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td><strong>High Protein Diet</strong></td>
+                                        <td>2,341</td>
+                                        <td class="text-success">+4.2</td>
+                                        <td><span class="stat-card__change stat-card__change--up">&#9650; 12%</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td><strong>Daily Exercise</strong></td>
+                                        <td>1,892</td>
+                                        <td class="text-success">+6.8</td>
+                                        <td><span class="stat-card__change stat-card__change--up">&#9650; 8%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td><strong>Quit Smoking</strong></td>
+                                        <td>1,456</td>
+                                        <td class="text-success">+9.1</td>
+                                        <td><span class="stat-card__change stat-card__change--up">&#9650; 22%</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td><strong>Stress Reduction</strong></td>
+                                        <td>1,203</td>
+                                        <td class="text-success">+3.5</td>
+                                        <td><span class="stat-card__change stat-card__change--up">&#9650; 5%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td><strong>Sleep Optimization</strong></td>
+                                        <td>987</td>
+                                        <td class="text-success">+5.3</td>
+                                        <td><span class="stat-card__change stat-card__change--up">&#9650; 15%</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer class="footer"><span>&copy; 2026 LifeTwin AI</span>
+                <div class="d-flex gap-4"><a href="#">Privacy</a><a href="#">Terms</a></div>
+            </footer>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <script src="../JS/mockData.js"></script>
+    <script src="../JS/main.js"></script>
+    <script>
+        (function () {
+            if (typeof MockData === 'undefined' || typeof Chart === 'undefined') return;
+
+            Chart.defaults.font.family = "'Inter', sans-serif";
+            Chart.defaults.font.size = 12;
+            Chart.defaults.plugins.legend.labels.usePointStyle = true;
+
+            var pa = MockData.populationAnalytics;
+
+            /* Sleep Trends */
+            var st = pa.sleepTrends;
+            new Chart(document.getElementById('sleepTrendsChart'), {
+                type: 'line',
+                data: {
+                    labels: st.labels,
+                    datasets: [
+                        { label: 'Avg Hours', data: st.avgHours, borderColor: '#52796F', backgroundColor: 'rgba(82,121,111,0.08)', fill: true, tension: 0.4, pointRadius: 3 },
+                        { label: 'Recommended', data: st.recommended, borderColor: '#84A98C', borderDash: [5, 3], fill: false, tension: 0, pointRadius: 0 }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false, scales: { y: { min: 5, max: 9, grid: { color: 'rgba(0,0,0,0.04)' } }, x: { grid: { display: false } } } }
+            });
+
+            /* Stress Distribution */
+            var sd = pa.stressDistribution;
+            new Chart(document.getElementById('stressDistChart'), {
+                type: 'bar',
+                data: {
+                    labels: sd.labels,
+                    datasets: [{ label: 'Users %', data: sd.values, backgroundColor: sd.colors, borderRadius: 6, borderSkipped: false }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.04)' } }, x: { grid: { display: false } } } }
+            });
+
+            /* Exercise Frequency */
+            var ef = pa.exerciseFrequency;
+            new Chart(document.getElementById('exerciseFreqChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ef.labels,
+                    datasets: [{ data: ef.values, backgroundColor: ef.colors, borderWidth: 0, hoverOffset: 8 }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, cutout: '55%', plugins: { legend: { position: 'bottom', labels: { font: { size: 10 } } } } }
+            });
+        })();
+    </script>
+    <script src="../JS/charts.js"></script>
+</body>
+
+</html>
