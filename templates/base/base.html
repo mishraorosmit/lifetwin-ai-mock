@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="LifeTwin — AI-powered digital twin that simulates your life decisions and predicts future outcomes.">
+    <meta name="theme-color" content="#04070d">
+
+    <title>{% block title %}LifeTwin — Your AI Digital Twin{% endblock %}</title>
+
+    <!-- Google Fonts — Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons (lightweight SVG icon set) -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+
+    <!-- Global Stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+    <!-- ─── Navigation ─────────────────────────────────────── -->
+    {% include "base/navbar.html" %}
+
+    <!-- ─── Page Content ───────────────────────────────────── -->
+    <main class="page-container" id="main-content">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- ─── Footer ─────────────────────────────────────────── -->
+    {% include "base/footer.html" %}
+
+    <!-- ─── Background Ambient Glow ────────────────────────── -->
+    <div class="ambient-orb ambient-orb--cyan" aria-hidden="true"></div>
+    <div class="ambient-orb ambient-orb--purple" aria-hidden="true"></div>
+
+    <!-- Global JS -->
+    <script src="{% static 'js/app.js' %}"></script>
+
+    <!-- Activate Lucide icons -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.lucide) lucide.createIcons();
+        });
+    </script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>

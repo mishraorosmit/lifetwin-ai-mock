@@ -1,0 +1,243 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Dashboard — LifeTwin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="dash" id="dashboard-page">
+
+    <!-- ═══════ Header ═══════ -->
+    <div class="dash__header fade-in">
+        <div class="dash__greeting">
+            <div class="dash__avatar">
+                <i data-lucide="user"></i>
+            </div>
+            <div>
+                <div class="dash__welcome">Welcome back,</div>
+                <div class="dash__name">{{ user.username|default:"Explorer" }}</div>
+            </div>
+        </div>
+        <div class="dash__actions">
+            <a href="/simulation/" class="btn btn-primary">
+                <i data-lucide="activity"></i> New Simulation
+            </a>
+            <a href="/twin/create/" class="btn btn-ghost">
+                <i data-lucide="settings"></i> Edit Twin
+            </a>
+        </div>
+    </div>
+
+    <!-- ═══════ Quick Stats ═══════ -->
+    <div class="quick-stats fade-in">
+        <!-- Health Score -->
+        <div class="quick-stat glass-card quick-stat--health">
+            <div class="quick-stat__icon"><i data-lucide="heart-pulse"></i></div>
+            <div>
+                <div class="quick-stat__value" id="qs-health">0%</div>
+                <div class="quick-stat__label">Health Score</div>
+                <div class="quick-stat__trend">
+                    <i data-lucide="trending-up"></i> +12% this month
+                </div>
+            </div>
+        </div>
+
+        <!-- Stress Level -->
+        <div class="quick-stat glass-card quick-stat--stress">
+            <div class="quick-stat__icon"><i data-lucide="brain"></i></div>
+            <div>
+                <div class="quick-stat__value" id="qs-stress">0/10</div>
+                <div class="quick-stat__label">Stress Level</div>
+                <div class="quick-stat__trend">
+                    <i data-lucide="trending-down"></i> -2.1 this month
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Simulations -->
+        <div class="quick-stat glass-card quick-stat--sims">
+            <div class="quick-stat__icon"><i data-lucide="activity"></i></div>
+            <div>
+                <div class="quick-stat__value" id="qs-sims">0</div>
+                <div class="quick-stat__label">Simulations Run</div>
+            </div>
+        </div>
+
+        <!-- Twin Age -->
+        <div class="quick-stat glass-card quick-stat--twin">
+            <div class="quick-stat__icon"><i data-lucide="cpu"></i></div>
+            <div>
+                <div class="quick-stat__value">12 wks</div>
+                <div class="quick-stat__label">Twin Active</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════ Charts Row ═══════ -->
+    <div class="dash-charts fade-in">
+        <!-- Health Trend (large) -->
+        <div class="dash-chart-card glass-card">
+            <div class="dash-chart-card__header">
+                <div class="dash-chart-card__title">
+                    <i data-lucide="trending-up"></i>
+                    Health & Energy Trend
+                </div>
+                <div class="dash-chart-card__period">
+                    <button class="period-btn" data-period="7d">7D</button>
+                    <button class="period-btn active" data-period="30d">30D</button>
+                    <button class="period-btn" data-period="90d">90D</button>
+                </div>
+            </div>
+            <div class="dash-chart-canvas">
+                <canvas id="dash-trend-chart"></canvas>
+            </div>
+        </div>
+
+        <!-- Lifestyle Doughnut (small) -->
+        <div class="dash-chart-card glass-card">
+            <div class="dash-chart-card__header">
+                <div class="dash-chart-card__title">
+                    <i data-lucide="pie-chart"></i>
+                    Lifestyle Breakdown
+                </div>
+            </div>
+            <div class="dash-chart-canvas">
+                <canvas id="dash-doughnut-chart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════ Bottom Grid ═══════ -->
+    <div class="dash-bottom fade-in">
+
+        <!-- Lifestyle Parameters -->
+        <div class="glass-card">
+            <div class="dash-chart-card__title" style="margin-bottom: var(--space-6);">
+                <i data-lucide="sliders-horizontal"></i>
+                Current Lifestyle
+            </div>
+            <div class="lifestyle-list" id="lifestyle-list">
+                <!-- Sleep -->
+                <div class="lifestyle-item">
+                    <div class="lifestyle-item__icon"><i data-lucide="moon"></i></div>
+                    <div class="lifestyle-item__info">
+                        <div class="lifestyle-item__name">Sleep Quality</div>
+                        <div class="lifestyle-item__bar">
+                            <div class="lifestyle-item__bar-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                    <div class="lifestyle-item__value">7.2h</div>
+                </div>
+                <!-- Exercise -->
+                <div class="lifestyle-item">
+                    <div class="lifestyle-item__icon"><i data-lucide="dumbbell"></i></div>
+                    <div class="lifestyle-item__info">
+                        <div class="lifestyle-item__name">Exercise</div>
+                        <div class="lifestyle-item__bar">
+                            <div class="lifestyle-item__bar-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                    <div class="lifestyle-item__value">5x/wk</div>
+                </div>
+                <!-- Hydration -->
+                <div class="lifestyle-item">
+                    <div class="lifestyle-item__icon"><i data-lucide="droplets"></i></div>
+                    <div class="lifestyle-item__info">
+                        <div class="lifestyle-item__name">Hydration</div>
+                        <div class="lifestyle-item__bar">
+                            <div class="lifestyle-item__bar-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                    <div class="lifestyle-item__value">8 gl</div>
+                </div>
+                <!-- Screen Time -->
+                <div class="lifestyle-item">
+                    <div class="lifestyle-item__icon"><i data-lucide="monitor"></i></div>
+                    <div class="lifestyle-item__info">
+                        <div class="lifestyle-item__name">Screen Time</div>
+                        <div class="lifestyle-item__bar">
+                            <div class="lifestyle-item__bar-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                    <div class="lifestyle-item__value">4.5h</div>
+                </div>
+                <!-- Stress Mgmt -->
+                <div class="lifestyle-item">
+                    <div class="lifestyle-item__icon"><i data-lucide="heart"></i></div>
+                    <div class="lifestyle-item__info">
+                        <div class="lifestyle-item__name">Stress Mgmt</div>
+                        <div class="lifestyle-item__bar">
+                            <div class="lifestyle-item__bar-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                    <div class="lifestyle-item__value">6/10</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Simulation History -->
+        <div class="glass-card">
+            <div class="dash-chart-card__title" style="margin-bottom: var(--space-6);">
+                <i data-lucide="history"></i>
+                Recent Simulations
+            </div>
+            <div class="history-list" id="history-list">
+                <!-- Populated by JS -->
+            </div>
+            <a href="/simulation/history/" class="btn btn-ghost" style="width:100%; margin-top: var(--space-5);">
+                View All History
+            </a>
+        </div>
+
+        <!-- Twin Status Card -->
+        <div class="glass-card">
+            <div class="dash-chart-card__title" style="margin-bottom: var(--space-6);">
+                <i data-lucide="cpu"></i>
+                Your Digital Twin
+            </div>
+            <div class="twin-card__visual">
+                <div class="twin-card__orb">
+                    <i data-lucide="fingerprint"></i>
+                </div>
+            </div>
+            <div class="twin-card__stats">
+                <div class="twin-card__stat">
+                    <span class="twin-card__stat-label">Created</span>
+                    <span class="twin-card__stat-value">12 weeks ago</span>
+                </div>
+                <div class="twin-card__stat">
+                    <span class="twin-card__stat-label">Last Synced</span>
+                    <span class="twin-card__stat-value" style="color: var(--color-success);">Just now</span>
+                </div>
+                <div class="twin-card__stat">
+                    <span class="twin-card__stat-label">Parameters</span>
+                    <span class="twin-card__stat-value">10 active</span>
+                </div>
+                <div class="twin-card__stat">
+                    <span class="twin-card__stat-label">Health Trend</span>
+                    <span class="twin-card__stat-value" style="color: var(--color-success);">↑ Improving</span>
+                </div>
+                <div class="twin-card__stat">
+                    <span class="twin-card__stat-label">Best Score</span>
+                    <span class="twin-card__stat-value gradient-text">82/100</span>
+                </div>
+            </div>
+            <a href="/twin/create/" class="btn btn-ghost" style="width:100%; margin-top: var(--space-5);">
+                <i data-lucide="settings"></i> Configure Twin
+            </a>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="{% static 'js/dashboard.js' %}"></script>
+{% endblock %}

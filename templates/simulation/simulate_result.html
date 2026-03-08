@@ -1,0 +1,203 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Simulation Results — LifeTwin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/result.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="result-page" id="result-page">
+
+    <!-- Header -->
+    <div class="result-page__header fade-in">
+        <div class="result-page__icon">
+            <i data-lucide="bar-chart-3"></i>
+        </div>
+        <h1 class="result-page__title">Simulation <span class="gradient-text">Results</span></h1>
+        <p class="result-page__subtitle">
+            Here's how your lifestyle changes would impact your digital twin over the next 12 weeks.
+        </p>
+        <div class="result-page__scenario-tag">
+            <span class="badge badge-accent">
+                <i data-lucide="moon" style="width:12px;height:12px;"></i>
+                Sleep Optimization
+            </span>
+        </div>
+    </div>
+
+    <!-- ═══════ Score Hero ═══════ -->
+    <div class="score-hero glass-card fade-in" id="score-hero">
+        <!-- SVG Ring -->
+        <div class="score-hero__ring">
+            <svg viewBox="0 0 180 180">
+                <defs>
+                    <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#06d6f2" />
+                        <stop offset="100%" stop-color="#818cf8" />
+                    </linearGradient>
+                </defs>
+                <circle class="score-hero__ring-bg" cx="90" cy="90" r="80" />
+                <circle class="score-hero__ring-fill" cx="90" cy="90" r="80" />
+            </svg>
+            <div class="score-hero__value">
+                <div class="score-hero__number gradient-text" id="score-number">0</div>
+                <div class="score-hero__label">Overall Score</div>
+            </div>
+        </div>
+
+        <!-- Verdict -->
+        <div class="score-hero__details">
+            <h2 class="score-hero__verdict">
+                <span class="gradient-text">Excellent</span> Outcome
+            </h2>
+            <p class="score-hero__explanation">
+                Based on your simulated changes, your digital twin shows significant improvement
+                across health, stress, and energy metrics over a 12‑week projection.
+            </p>
+            <span class="badge badge-success">
+                <i data-lucide="trending-up" style="width:12px;height:12px;"></i>
+                Positive Trajectory
+            </span>
+        </div>
+    </div>
+
+    <!-- ═══════ Metric Cards ═══════ -->
+    <div class="metric-grid fade-in">
+        <!-- Health -->
+        <div class="metric-card glass-card metric-card--health" id="metric-health">
+            <div class="metric-card__icon"><i data-lucide="heart-pulse"></i></div>
+            <div class="metric-card__value">0%</div>
+            <div class="metric-card__label">Health Score</div>
+            <div class="metric-card__change metric-card__change--up">
+                <i data-lucide="trending-up"></i>
+                <span>+23%</span>
+            </div>
+        </div>
+
+        <!-- Stress -->
+        <div class="metric-card glass-card metric-card--stress" id="metric-stress">
+            <div class="metric-card__icon"><i data-lucide="brain"></i></div>
+            <div class="metric-card__value">0/10</div>
+            <div class="metric-card__label">Stress Level</div>
+            <div class="metric-card__change metric-card__change--down">
+                <i data-lucide="trending-down"></i>
+                <span>-34%</span>
+            </div>
+        </div>
+
+        <!-- Energy -->
+        <div class="metric-card glass-card metric-card--energy" id="metric-energy">
+            <div class="metric-card__icon"><i data-lucide="zap"></i></div>
+            <div class="metric-card__value">0%</div>
+            <div class="metric-card__label">Energy Level</div>
+            <div class="metric-card__change metric-card__change--up">
+                <i data-lucide="trending-up"></i>
+                <span>+41%</span>
+            </div>
+        </div>
+
+        <!-- Longevity -->
+        <div class="metric-card glass-card metric-card--longevity" id="metric-longevity">
+            <div class="metric-card__icon"><i data-lucide="infinity"></i></div>
+            <div class="metric-card__value">0%</div>
+            <div class="metric-card__label">Longevity Index</div>
+            <div class="metric-card__change metric-card__change--up">
+                <i data-lucide="trending-up"></i>
+                <span>+12%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════ Charts ═══════ -->
+    <div class="charts-section fade-in">
+        <!-- Health Trend -->
+        <div class="chart-card glass-card">
+            <div class="chart-card__title">
+                <i data-lucide="trending-up"></i>
+                Health & Stress Projection
+            </div>
+            <div class="chart-card__canvas">
+                <canvas id="chart-health-trend"></canvas>
+            </div>
+        </div>
+
+        <!-- Radar -->
+        <div class="chart-card glass-card">
+            <div class="chart-card__title">
+                <i data-lucide="radar"></i>
+                Before vs After Comparison
+            </div>
+            <div class="chart-card__canvas">
+                <canvas id="chart-radar"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════ Comparison Table ═══════ -->
+    <div class="comparison-section glass-card fade-in">
+        <div class="comparison-section__title">
+            <i data-lucide="git-compare"></i>
+            Parameter Comparison
+        </div>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Before</th>
+                    <th>After</th>
+                    <th>Change</th>
+                </tr>
+            </thead>
+            <tbody id="comparison-tbody">
+                <!-- Populated by JS -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ═══════ AI Insight ═══════ -->
+    <div class="ai-insight glass-card fade-in">
+        <div class="ai-insight__header">
+            <div class="ai-insight__icon">
+                <i data-lucide="sparkles"></i>
+            </div>
+            <div class="ai-insight__title">AI Analysis</div>
+        </div>
+        <p class="ai-insight__text">
+            Based on the simulation, <strong>increasing sleep from 5 to 7 hours</strong> is the
+            single most impactful change, contributing to a <strong>23% health improvement</strong> and a
+            <strong>34% stress reduction</strong>. Combined with increased exercise and reduced screen time,
+            your digital twin projects a <strong>significant positive trajectory</strong> over the next
+            12 weeks. The AI recommends maintaining these changes consistently for optimal results.
+            <br><br>
+            <strong>Key recommendation:</strong> Prioritize sleep quality alongside duration —
+            a consistent sleep schedule yields 18% better results than extra hours alone.
+        </p>
+    </div>
+
+    <!-- ═══════ Actions ═══════ -->
+    <div class="result-actions fade-in">
+        <a href="/simulation/" class="btn btn-primary">
+            <i data-lucide="refresh-cw"></i>
+            Run Another Simulation
+        </a>
+        <a href="/dashboard/" class="btn btn-ghost">
+            <i data-lucide="layout-dashboard"></i>
+            View Dashboard
+        </a>
+        <a href="/simulation/history/" class="btn btn-ghost">
+            <i data-lucide="history"></i>
+            Simulation History
+        </a>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="{% static 'js/result.js' %}"></script>
+{% endblock %}

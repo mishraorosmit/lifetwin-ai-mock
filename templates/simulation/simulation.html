@@ -1,0 +1,277 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Run Simulation — LifeTwin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/twin.css' %}">
+<link rel="stylesheet" href="{% static 'css/simulation.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="sim-page" id="simulation-page">
+
+    <!-- Header -->
+    <div class="sim-page__header fade-in">
+        <div class="sim-page__icon">
+            <i data-lucide="activity"></i>
+        </div>
+        <h1 class="sim-page__title">Run a <span class="gradient-text">Simulation</span></h1>
+        <p class="sim-page__subtitle">
+            Adjust lifestyle parameters and let the AI predict how your decisions impact your future.
+        </p>
+    </div>
+
+    <!-- Twin Status -->
+    <div class="sim-controls fade-in">
+        <div class="twin-status">
+            <div class="twin-status__avatar">
+                <i data-lucide="cpu"></i>
+            </div>
+            <div class="twin-status__info">
+                <div class="twin-status__name">{{ user.username|default:"Your Digital Twin" }}</div>
+                <div class="twin-status__meta">Last synced: Just now</div>
+            </div>
+            <span class="twin-status__badge">
+                <i data-lucide="check-circle"
+                    style="width:12px;height:12px;display:inline;vertical-align:middle;margin-right:3px;"></i>
+                Active
+            </span>
+        </div>
+
+        <form id="simulation-form" method="POST">
+            {% csrf_token %}
+
+            <!-- ═══════ Scenario Selection ═══════ -->
+            <div class="sim-controls__card glass-card fade-in">
+                <h2 class="sim-controls__title">
+                    <i data-lucide="target"></i>
+                    Choose a Scenario
+                </h2>
+                <p class="sim-controls__desc">
+                    Select a pre-built scenario or customize parameters below.
+                </p>
+
+                <div class="scenario-grid">
+                    <!-- Sleep Optimization -->
+                    <label class="scenario-card selected" data-scenario="sleep">
+                        <input type="radio" name="scenario" value="sleep" checked>
+                        <div class="scenario-card__icon">
+                            <i data-lucide="moon"></i>
+                        </div>
+                        <div class="scenario-card__name">Sleep Optimization</div>
+                        <div class="scenario-card__hint">Improve rest quality</div>
+                    </label>
+
+                    <!-- Fitness Boost -->
+                    <label class="scenario-card" data-scenario="fitness">
+                        <input type="radio" name="scenario" value="fitness">
+                        <div class="scenario-card__icon">
+                            <i data-lucide="dumbbell"></i>
+                        </div>
+                        <div class="scenario-card__name">Fitness Boost</div>
+                        <div class="scenario-card__hint">Increase exercise</div>
+                    </label>
+
+                    <!-- Stress Reduction -->
+                    <label class="scenario-card" data-scenario="stress">
+                        <input type="radio" name="scenario" value="stress">
+                        <div class="scenario-card__icon">
+                            <i data-lucide="heart-pulse"></i>
+                        </div>
+                        <div class="scenario-card__name">Stress Reduction</div>
+                        <div class="scenario-card__hint">Lower stress levels</div>
+                    </label>
+
+                    <!-- Custom -->
+                    <label class="scenario-card" data-scenario="custom">
+                        <input type="radio" name="scenario" value="custom">
+                        <div class="scenario-card__icon">
+                            <i data-lucide="sliders-horizontal"></i>
+                        </div>
+                        <div class="scenario-card__name">Custom</div>
+                        <div class="scenario-card__hint">Adjust everything</div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- ═══════ Parameter Adjustments ═══════ -->
+            <div class="sim-controls__card glass-card fade-in" style="margin-top: var(--space-6);">
+                <h2 class="sim-controls__title">
+                    <i data-lucide="sliders-horizontal"></i>
+                    Adjust Parameters
+                </h2>
+                <p class="sim-controls__desc">
+                    Move sliders to set your simulated lifestyle. Green means improvement over your current twin values.
+                </p>
+
+                <!-- Sleep Params -->
+                <div class="param-section" data-scenario="sleep" style="display: block;">
+                    <div class="param-section__title">
+                        <i data-lucide="moon"></i> Sleep Parameters
+                    </div>
+
+                    <div class="param-row">
+                        <div class="param-row__label">
+                            <i data-lucide="clock"></i> Sleep Hours
+                        </div>
+                        <div class="param-row__current">Now: 5h</div>
+                        <div class="param-row__slider">
+                            <input type="range" id="sim-sleep" name="sleep_hours" min="3" max="12" value="7"
+                                data-suffix="h" data-current="5" data-better="higher">
+                        </div>
+                        <div class="param-row__new-val" id="sim-sleep-val">7h</div>
+                    </div>
+
+                    <div class="param-row">
+                        <div class="param-row__label">
+                            <i data-lucide="bed"></i> Sleep Quality
+                        </div>
+                        <div class="param-row__current">Now: 4/10</div>
+                        <div class="param-row__slider">
+                            <input type="range" id="sim-sleep-quality" name="sleep_quality" min="1" max="10" value="7"
+                                data-suffix="/10" data-current="4" data-better="higher">
+                        </div>
+                        <div class="param-row__new-val" id="sim-sleep-quality-val">7/10</div>
+                    </div>
+                </div>
+
+                <!-- Fitness Params -->
+                <div class="param-section" data-scenario="fitness" style="display: none;">
+                    <div class="param-section__title">
+                        <i data-lucide="dumbbell"></i> Fitness Parameters
+                    </div>
+
+                    <div class="param-row">
+                        <div class="param-row__label">
+                            <i data-lucide="footprints"></i> Exercise Days/Week
+                        </div>
+                        <div class="param-row__current">Now: 2</div>
+                        <div class="param-row__slider">
+                            <input type="range" id="sim-exercise" name="exercise_days" min="0" max="7" value="5"
+                                data-suffix=" days" data-current="2" data-better="higher">
+                        </div>
+                        <div class="param-row__new-val" id="sim-exercise-val">5 days</div>
+                    </div>
+
+                    <div class="param-row">
+                        <div class="param-row__label">
+                            <i data-lucide="droplets"></i> Water Intake
+                        </div>
+                        <div class="param-row__current">Now: 4</div>
+                        <div class="param-row__slider">
+                            <input type="range" id="sim-water" name="water_intake" min="1" max="15" value="8"
+                                data-suffix=" glasses" data-current="4" data-better="higher">
+                        </div>
+                        <div class="param-row__new-val" id="sim-water-val">8 glasses</div>
+                    </div>
+                </div>
+
+                <!-- Stress Params -->
+                <div class="param-section" data-scenario="stress" style="display: none;">
+                    <div class="param-section__title">
+                        <i data-lucide="heart-pulse"></i> Stress Parameters
+                    </div>
+
+                    <div class="param-row">
+                        <div class="param-row__label">
+                            <i data-lucide="brain"></i> Stress Level
+                        </div>
+                        <div class="param-row__current">Now: 7/10</div>
+                        <div class="param-row__slider">
+                            <input type="range" id="sim-stress" name="stress_level" min="1" max="10" value="3"
+                                data-suffix="/10" data-current="7" data-better="lower">
+                        </div>
+                        <div class="param-row__new-val" id="sim-stress-val">3/10</div>
+                    </div>
+
+                    <div class="param-row">
+                        <div class="param-row__label">
+                            <i data-lucide="monitor"></i> Screen Time
+                        </div>
+                        <div class="param-row__current">Now: 8h</div>
+                        <div class="param-row__slider">
+                            <input type="range" id="sim-screen" name="screen_time" min="0" max="16" value="4"
+                                data-suffix="h" data-current="8" data-better="lower">
+                        </div>
+                        <div class="param-row__new-val" id="sim-screen-val">4h</div>
+                    </div>
+                </div>
+
+                <!-- Custom Params (all) -->
+                <div class="param-section" data-scenario="custom" style="display: none;">
+                    <div class="param-section__title">
+                        <i data-lucide="sliders-horizontal"></i> All Parameters
+                    </div>
+
+                    <div class="param-row">
+                        <div class="param-row__label"><i data-lucide="clock"></i> Sleep Hours</div>
+                        <div class="param-row__current">Now: 5h</div>
+                        <div class="param-row__slider">
+                            <input type="range" id="sim-c-sleep" name="c_sleep_hours" min="3" max="12" value="5"
+                                data-suffix="h" data-current="5" data-better="higher">
+                        </div>
+                        <div class="param-row__new-val" id="sim-c-sleep-val">5h</div>
+                    </div>
+
+                    <div class="param-row">
+                        <div class="param-row__label"><i data-lucide="footprints"></i> Exercise</div>
+                        <div class="param-row__current">Now: 2</div>
+                        <div class="param-row__slider">
+                            <input type="range" id="sim-c-exercise" name="c_exercise_days" min="0" max="7" value="2"
+                                data-suffix=" days" data-current="2" data-better="higher">
+                        </div>
+                        <div class="param-row__new-val" id="sim-c-exercise-val">2 days</div>
+                    </div>
+
+                    <div class="param-row">
+                        <div class="param-row__label"><i data-lucide="brain"></i> Stress</div>
+                        <div class="param-row__current">Now: 7/10</div>
+                        <div class="param-row__slider">
+                            <input type="range" id="sim-c-stress" name="c_stress_level" min="1" max="10" value="7"
+                                data-suffix="/10" data-current="7" data-better="lower">
+                        </div>
+                        <div class="param-row__new-val" id="sim-c-stress-val">7/10</div>
+                    </div>
+
+                    <div class="param-row">
+                        <div class="param-row__label"><i data-lucide="droplets"></i> Water</div>
+                        <div class="param-row__current">Now: 4</div>
+                        <div class="param-row__slider">
+                            <input type="range" id="sim-c-water" name="c_water_intake" min="1" max="15" value="4"
+                                data-suffix=" glasses" data-current="4" data-better="higher">
+                        </div>
+                        <div class="param-row__new-val" id="sim-c-water-val">4 glasses</div>
+                    </div>
+
+                    <div class="param-row">
+                        <div class="param-row__label"><i data-lucide="monitor"></i> Screen Time</div>
+                        <div class="param-row__current">Now: 8h</div>
+                        <div class="param-row__slider">
+                            <input type="range" id="sim-c-screen" name="c_screen_time" min="0" max="16" value="8"
+                                data-suffix="h" data-current="8" data-better="lower">
+                        </div>
+                        <div class="param-row__new-val" id="sim-c-screen-val">8h</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Run Button -->
+            <div class="sim-run-wrap fade-in">
+                <button type="button" class="btn btn-primary sim-run-btn" id="sim-run-btn">
+                    <i data-lucide="zap"></i>
+                    Run Simulation
+                </button>
+                <p class="sim-run-hint">AI engine will analyze the impact on your digital twin</p>
+            </div>
+
+        </form>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/simulation.js' %}"></script>
+{% endblock %}

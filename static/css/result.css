@@ -1,0 +1,445 @@
+/* ============================================================
+   LIFETWIN — Simulation Result Page Styles
+   ============================================================ */
+
+/* ── Result Layout ─────────────────────────────────────────── */
+.result-page {
+    padding: var(--space-12) 0;
+}
+
+.result-page__header {
+    text-align: center;
+    margin-bottom: var(--space-12);
+}
+
+.result-page__icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--gradient-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-5);
+    box-shadow: var(--shadow-glow);
+}
+
+.result-page__icon i {
+    width: 30px;
+    height: 30px;
+    color: var(--color-bg-primary);
+}
+
+.result-page__title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--letter-spacing-tight);
+    margin-bottom: var(--space-3);
+}
+
+.result-page__subtitle {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    max-width: 540px;
+    margin: 0 auto;
+}
+
+.result-page__scenario-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+}
+
+
+/* ── Score Hero ────────────────────────────────────────────── */
+.score-hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-16);
+    padding: var(--space-12) var(--space-8);
+    margin-bottom: var(--space-10);
+    text-align: center;
+}
+
+.score-hero__ring {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    flex-shrink: 0;
+}
+
+.score-hero__ring svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.score-hero__ring-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.04);
+    stroke-width: 8;
+}
+
+.score-hero__ring-fill {
+    fill: none;
+    stroke: url(#scoreGradient);
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-dasharray: 502;
+    stroke-dashoffset: 502;
+    transition: stroke-dashoffset 1.6s var(--ease-out);
+}
+
+.score-hero__value {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.score-hero__number {
+    font-size: var(--font-size-5xl);
+    font-weight: var(--font-weight-bold);
+    line-height: 1;
+}
+
+.score-hero__label {
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    color: var(--color-text-muted);
+    margin-top: var(--space-1);
+}
+
+.score-hero__details {
+    text-align: left;
+}
+
+.score-hero__verdict {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-3);
+}
+
+.score-hero__explanation {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-normal);
+    max-width: 340px;
+    margin-bottom: var(--space-5);
+}
+
+
+/* ── Metric Cards Grid ─────────────────────────────────────── */
+.metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-5);
+    margin-bottom: var(--space-10);
+}
+
+.metric-card {
+    padding: var(--space-6);
+    text-align: center;
+}
+
+.metric-card__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-4);
+}
+
+.metric-card__icon i {
+    width: 20px;
+    height: 20px;
+}
+
+.metric-card__value {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-1);
+}
+
+.metric-card__label {
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-3);
+}
+
+.metric-card__change {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-full);
+}
+
+.metric-card__change i {
+    width: 12px;
+    height: 12px;
+}
+
+.metric-card__change--up {
+    color: var(--color-success);
+    background: rgba(52, 211, 153, 0.10);
+}
+
+.metric-card__change--down {
+    color: var(--color-danger);
+    background: rgba(248, 113, 113, 0.10);
+}
+
+/* Color variations */
+.metric-card--health .metric-card__icon {
+    background: rgba(52, 211, 153, 0.10);
+}
+
+.metric-card--health .metric-card__icon i {
+    color: var(--color-success);
+}
+
+.metric-card--health .metric-card__value {
+    color: var(--color-success);
+}
+
+.metric-card--stress .metric-card__icon {
+    background: rgba(6, 214, 242, 0.10);
+}
+
+.metric-card--stress .metric-card__icon i {
+    color: var(--color-accent);
+}
+
+.metric-card--stress .metric-card__value {
+    color: var(--color-accent);
+}
+
+.metric-card--energy .metric-card__icon {
+    background: rgba(251, 191, 36, 0.10);
+}
+
+.metric-card--energy .metric-card__icon i {
+    color: var(--color-warning);
+}
+
+.metric-card--energy .metric-card__value {
+    color: var(--color-warning);
+}
+
+.metric-card--longevity .metric-card__icon {
+    background: rgba(129, 140, 248, 0.10);
+}
+
+.metric-card--longevity .metric-card__icon i {
+    color: var(--color-accent-alt);
+}
+
+.metric-card--longevity .metric-card__value {
+    color: var(--color-accent-alt);
+}
+
+
+/* ── Chart Section ─────────────────────────────────────────── */
+.charts-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+    margin-bottom: var(--space-10);
+}
+
+.chart-card {
+    padding: var(--space-6);
+}
+
+.chart-card__title {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-5);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.chart-card__title i {
+    width: 16px;
+    height: 16px;
+    color: var(--color-accent);
+}
+
+.chart-card__canvas {
+    position: relative;
+    width: 100%;
+    height: 240px;
+}
+
+
+/* ── Comparison Table ──────────────────────────────────────── */
+.comparison-section {
+    margin-bottom: var(--space-10);
+}
+
+.comparison-section__title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-6);
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.comparison-section__title i {
+    width: 20px;
+    height: 20px;
+    color: var(--color-accent);
+}
+
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.comparison-table th {
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    color: var(--color-text-muted);
+    font-weight: var(--font-weight-semibold);
+    padding: var(--space-3) var(--space-4);
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.comparison-table td {
+    padding: var(--space-4);
+    font-size: var(--font-size-sm);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.comparison-table tr:hover td {
+    background: rgba(255, 255, 255, 0.015);
+}
+
+.comparison-table .val-before {
+    color: var(--color-text-muted);
+}
+
+.comparison-table .val-after {
+    font-weight: var(--font-weight-semibold);
+}
+
+.comparison-table .val-change {
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-xs);
+}
+
+
+/* ── AI Insight Box ────────────────────────────────────────── */
+.ai-insight {
+    padding: var(--space-8);
+    border: 1px solid rgba(6, 214, 242, 0.12);
+    background: rgba(6, 214, 242, 0.03);
+    margin-bottom: var(--space-10);
+}
+
+.ai-insight__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+}
+
+.ai-insight__icon {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
+    background: var(--gradient-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ai-insight__icon i {
+    width: 18px;
+    height: 18px;
+    color: var(--color-bg-primary);
+}
+
+.ai-insight__title {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+}
+
+.ai-insight__text {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-normal);
+}
+
+.ai-insight__text strong {
+    color: var(--color-text-primary);
+}
+
+
+/* ── Result Actions ────────────────────────────────────────── */
+.result-actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+}
+
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .score-hero {
+        flex-direction: column;
+        gap: var(--space-8);
+    }
+
+    .score-hero__details {
+        text-align: center;
+    }
+
+    .charts-section {
+        grid-template-columns: 1fr;
+    }
+
+    .comparison-table {
+        font-size: var(--font-size-xs);
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+        padding: var(--space-2) var(--space-3);
+    }
+}
+
+@media (max-width: 480px) {
+    .metric-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .result-page__title {
+        font-size: var(--font-size-2xl);
+    }
+
+    .result-actions {
+        flex-direction: column;
+    }
+
+    .result-actions .btn {
+        width: 100%;
+    }
+}
