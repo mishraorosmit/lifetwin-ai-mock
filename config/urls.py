@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from apps.dashboard.urls import api_urlpatterns as dashboard_api_patterns
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
@@ -26,4 +28,8 @@ urlpatterns = [
     path('twin/', include('apps.twin.urls')),
     path('simulation/', include('apps.simulation.urls')),
     path('dashboard/', include('apps.dashboard.urls')),
+
+    # ─── REST-style API Endpoints ─────────────────────────────
+    # All API routes live under /api/ to separate them from page views.
+    path('api/', include(dashboard_api_patterns)),
 ]
