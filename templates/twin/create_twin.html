@@ -1,0 +1,261 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Create Your Digital Twin — LifeTwin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/twin.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="twin-page" id="create-twin-page">
+
+    <!-- Header -->
+    <div class="twin-page__header fade-in">
+        <div class="twin-page__icon">
+            <i data-lucide="cpu"></i>
+        </div>
+        <h1 class="twin-page__title">Create Your <span class="gradient-text">Digital Twin</span></h1>
+        <p class="twin-page__subtitle">
+            Tell us about yourself so our AI can build a personalized simulation model of your life.
+        </p>
+    </div>
+
+    <!-- Step Progress -->
+    <div class="step-progress fade-in" id="step-progress">
+        <div class="step-progress__step active">
+            <div class="step-progress__dot active">1</div>
+            <span class="step-progress__label">Personal</span>
+        </div>
+        <div class="step-progress__connector"></div>
+        <div class="step-progress__step">
+            <div class="step-progress__dot">2</div>
+            <span class="step-progress__label">Lifestyle</span>
+        </div>
+        <div class="step-progress__connector"></div>
+        <div class="step-progress__step">
+            <div class="step-progress__dot">3</div>
+            <span class="step-progress__label">Review</span>
+        </div>
+    </div>
+
+    <!-- Multi-Step Form -->
+    <form class="twin-form glass-card fade-in" id="create-twin-form" method="POST">
+        {% csrf_token %}
+
+        <!-- ═══════ STEP 1: Personal Info ═══════ -->
+        <div class="twin-form__section active" data-step="0">
+            <h2 class="twin-form__section-title">Personal Information</h2>
+            <p class="twin-form__section-desc">Basic details to initialize your digital twin model.</p>
+
+            <div class="field-grid">
+                <!-- Age -->
+                <div class="form-group">
+                    <label class="form-label" for="twin-age">Age</label>
+                    <div class="input-icon-wrap">
+                        <i data-lucide="calendar" class="input-icon-wrap__icon"></i>
+                        <input type="number" class="form-input" id="twin-age" name="age" placeholder="25" min="10"
+                            max="100" required style="padding-left: var(--space-10);">
+                    </div>
+                </div>
+
+                <!-- Gender -->
+                <div class="form-group">
+                    <label class="form-label">Gender</label>
+                    <div class="pill-select" data-summary="summary-gender">
+                        <label class="pill-select__option selected">
+                            <input type="radio" name="gender" value="male" checked> Male
+                        </label>
+                        <label class="pill-select__option">
+                            <input type="radio" name="gender" value="female"> Female
+                        </label>
+                        <label class="pill-select__option">
+                            <input type="radio" name="gender" value="other"> Other
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Height -->
+                <div class="form-group">
+                    <label class="form-label" for="twin-height">Height (cm)</label>
+                    <div class="input-icon-wrap">
+                        <i data-lucide="ruler" class="input-icon-wrap__icon"></i>
+                        <input type="number" class="form-input" id="twin-height" name="height" placeholder="170"
+                            min="100" max="250" data-suffix=" cm" style="padding-left: var(--space-10);">
+                    </div>
+                </div>
+
+                <!-- Weight -->
+                <div class="form-group">
+                    <label class="form-label" for="twin-weight">Weight (kg)</label>
+                    <div class="input-icon-wrap">
+                        <i data-lucide="weight" class="input-icon-wrap__icon"></i>
+                        <input type="number" class="form-input" id="twin-weight" name="weight" placeholder="70" min="30"
+                            max="300" data-suffix=" kg" style="padding-left: var(--space-10);">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════ STEP 2: Lifestyle ═══════ -->
+        <div class="twin-form__section" data-step="1">
+            <h2 class="twin-form__section-title">Lifestyle & Habits</h2>
+            <p class="twin-form__section-desc">Your daily routines power the AI's prediction engine.</p>
+
+            <!-- Sleep Hours -->
+            <div class="range-group">
+                <div class="range-group__header">
+                    <label class="form-label" for="twin-sleep">
+                        <i data-lucide="moon"
+                            style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i>
+                        Sleep Hours
+                    </label>
+                    <span class="range-group__value" id="twin-sleep-val">7h</span>
+                </div>
+                <input type="range" id="twin-sleep" name="sleep_hours" min="3" max="12" value="7" data-suffix="h">
+            </div>
+
+            <!-- Exercise -->
+            <div class="range-group">
+                <div class="range-group__header">
+                    <label class="form-label" for="twin-exercise">
+                        <i data-lucide="dumbbell"
+                            style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i>
+                        Exercise (days/week)
+                    </label>
+                    <span class="range-group__value" id="twin-exercise-val">3</span>
+                </div>
+                <input type="range" id="twin-exercise" name="exercise_days" min="0" max="7" value="3"
+                    data-suffix=" days">
+            </div>
+
+            <!-- Water Intake -->
+            <div class="range-group">
+                <div class="range-group__header">
+                    <label class="form-label" for="twin-water">
+                        <i data-lucide="droplets"
+                            style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i>
+                        Water Intake (glasses/day)
+                    </label>
+                    <span class="range-group__value" id="twin-water-val">6</span>
+                </div>
+                <input type="range" id="twin-water" name="water_intake" min="1" max="15" value="6"
+                    data-suffix=" glasses">
+            </div>
+
+            <!-- Stress Level -->
+            <div class="range-group">
+                <div class="range-group__header">
+                    <label class="form-label" for="twin-stress">
+                        <i data-lucide="brain"
+                            style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i>
+                        Stress Level
+                    </label>
+                    <span class="range-group__value" id="twin-stress-val">5/10</span>
+                </div>
+                <input type="range" id="twin-stress" name="stress_level" min="1" max="10" value="5" data-suffix="/10">
+            </div>
+
+            <!-- Screen Time -->
+            <div class="range-group">
+                <div class="range-group__header">
+                    <label class="form-label" for="twin-screen">
+                        <i data-lucide="monitor"
+                            style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px;"></i>
+                        Screen Time (hours/day)
+                    </label>
+                    <span class="range-group__value" id="twin-screen-val">6h</span>
+                </div>
+                <input type="range" id="twin-screen" name="screen_time" min="0" max="16" value="6" data-suffix="h">
+            </div>
+
+            <!-- Diet Type -->
+            <div class="form-group">
+                <label class="form-label">Diet Type</label>
+                <div class="pill-select" data-summary="summary-diet">
+                    <label class="pill-select__option selected">
+                        <input type="radio" name="diet" value="balanced" checked> Balanced
+                    </label>
+                    <label class="pill-select__option">
+                        <input type="radio" name="diet" value="vegetarian"> Vegetarian
+                    </label>
+                    <label class="pill-select__option">
+                        <input type="radio" name="diet" value="vegan"> Vegan
+                    </label>
+                    <label class="pill-select__option">
+                        <input type="radio" name="diet" value="keto"> Keto
+                    </label>
+                    <label class="pill-select__option">
+                        <input type="radio" name="diet" value="other"> Other
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════ STEP 3: Review & Create ═══════ -->
+        <div class="twin-form__section" data-step="2">
+            <h2 class="twin-form__section-title">Review Your Twin</h2>
+            <p class="twin-form__section-desc">Confirm your details — you can always edit later.</p>
+
+            <div class="twin-summary">
+                <div class="twin-summary__item">
+                    <div class="twin-summary__label">Age</div>
+                    <div class="twin-summary__value" id="summary-age">—</div>
+                </div>
+                <div class="twin-summary__item">
+                    <div class="twin-summary__label">Gender</div>
+                    <div class="twin-summary__value" id="summary-gender">—</div>
+                </div>
+                <div class="twin-summary__item">
+                    <div class="twin-summary__label">Height</div>
+                    <div class="twin-summary__value" id="summary-height">—</div>
+                </div>
+                <div class="twin-summary__item">
+                    <div class="twin-summary__label">Weight</div>
+                    <div class="twin-summary__value" id="summary-weight">—</div>
+                </div>
+                <div class="twin-summary__item">
+                    <div class="twin-summary__label">Sleep</div>
+                    <div class="twin-summary__value" id="summary-sleep">—</div>
+                </div>
+                <div class="twin-summary__item">
+                    <div class="twin-summary__label">Exercise</div>
+                    <div class="twin-summary__value" id="summary-exercise">—</div>
+                </div>
+                <div class="twin-summary__item">
+                    <div class="twin-summary__label">Water</div>
+                    <div class="twin-summary__value" id="summary-water">—</div>
+                </div>
+                <div class="twin-summary__item">
+                    <div class="twin-summary__label">Stress</div>
+                    <div class="twin-summary__value" id="summary-stress">—</div>
+                </div>
+                <div class="twin-summary__item">
+                    <div class="twin-summary__label">Screen Time</div>
+                    <div class="twin-summary__value" id="summary-screen">—</div>
+                </div>
+                <div class="twin-summary__item">
+                    <div class="twin-summary__label">Diet</div>
+                    <div class="twin-summary__value" id="summary-diet">—</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="twin-form__nav">
+            <button type="button" class="btn btn-ghost" id="twin-prev" style="visibility: hidden;">
+                <i data-lucide="arrow-left"></i> Back
+            </button>
+            <button type="button" class="btn btn-primary" id="twin-next">
+                Next <i data-lucide="arrow-right"></i>
+            </button>
+        </div>
+    </form>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/twin.js' %}"></script>
+{% endblock %}

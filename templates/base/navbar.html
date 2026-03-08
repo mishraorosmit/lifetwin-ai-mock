@@ -1,0 +1,90 @@
+{% load static %}
+
+<!-- ─── Navbar ────────────────────────────────────────────── -->
+<nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="navbar__inner">
+
+        <!-- Brand -->
+        <a href="/" class="navbar__brand">
+            <div class="navbar__logo-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke="currentColor"
+                        fill="none" stroke-width="1.5" />
+                    <path d="M12 6v6l4 2" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" />
+                    <circle cx="12" cy="12" r="2" fill="currentColor" />
+                </svg>
+            </div>
+            <span class="navbar__wordmark">Life<span>Twin</span></span>
+        </a>
+
+        <!-- Mobile Toggle -->
+        <button class="navbar__toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-menu"
+            aria-label="Toggle navigation">
+            <span class="navbar__toggle-line"></span>
+            <span class="navbar__toggle-line"></span>
+            <span class="navbar__toggle-line"></span>
+        </button>
+
+        <!-- Menu -->
+        <div class="navbar__menu" id="nav-menu">
+
+            <!-- Nav Links -->
+            <div class="navbar__links">
+                <a href="/" class="navbar__link" data-page="home">
+                    <i data-lucide="home"></i>
+                    Home
+                </a>
+                <a href="/features/" class="navbar__link" data-page="features">
+                    <i data-lucide="layers"></i>
+                    Features
+                </a>
+                <a href="/twin/create/" class="navbar__link" data-page="twin">
+                    <i data-lucide="cpu"></i>
+                    My Twin
+                </a>
+                <a href="/simulation/" class="navbar__link" data-page="simulation">
+                    <i data-lucide="activity"></i>
+                    Simulate
+                </a>
+                <a href="/dashboard/" class="navbar__link" data-page="dashboard">
+                    <i data-lucide="bar-chart-3"></i>
+                    Dashboard
+                </a>
+            </div>
+
+            <!-- Actions -->
+            <div class="navbar__actions">
+                {% if user.is_authenticated %}
+                <a href="/profile/" class="navbar__link" data-page="profile">
+                    <i data-lucide="user"></i>
+                    {{ user.username }}
+                </a>
+                <a href="/logout/" class="btn btn-ghost navbar__cta">
+                    <i data-lucide="log-out"></i>
+                    Logout
+                </a>
+                {% else %}
+                <a href="/login/" class="navbar__link" data-page="login">
+                    <i data-lucide="log-in"></i>
+                    Login
+                </a>
+                <a href="/register/" class="btn btn-primary navbar__cta">
+                    Get Started
+                </a>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</nav>
+
+<!-- Navbar scroll-aware script (inline — tiny) -->
+<script>
+    (function () {
+        var nav = document.getElementById('navbar');
+        if (!nav) return;
+        window.addEventListener('scroll', function () {
+            nav.classList.toggle('scrolled', window.scrollY > 20);
+        }, { passive: true });
+    })();
+</script>

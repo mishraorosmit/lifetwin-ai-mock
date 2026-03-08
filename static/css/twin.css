@@ -1,0 +1,327 @@
+/* ============================================================
+   LIFETWIN — Twin Pages (Create / Overview / Edit Lifestyle)
+   ============================================================ */
+
+/* ── Twin Page Layout ──────────────────────────────────────── */
+.twin-page {
+    padding: var(--space-12) 0;
+}
+
+.twin-page__header {
+    text-align: center;
+    margin-bottom: var(--space-12);
+}
+
+.twin-page__icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--gradient-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-5);
+    box-shadow: var(--shadow-glow);
+    animation: float 6s ease-in-out infinite;
+}
+
+.twin-page__icon i {
+    width: 30px;
+    height: 30px;
+    color: var(--color-bg-primary);
+}
+
+.twin-page__title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--letter-spacing-tight);
+    margin-bottom: var(--space-3);
+}
+
+.twin-page__subtitle {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+
+/* ── Multi-Step Progress Bar ───────────────────────────────── */
+.step-progress {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-12);
+}
+
+.step-progress__step {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.step-progress__dot {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-muted);
+    background: var(--color-bg-card);
+    transition: all var(--duration-normal) var(--ease-out);
+}
+
+.step-progress__dot.active {
+    border-color: var(--color-accent);
+    color: var(--color-bg-primary);
+    background: var(--color-accent);
+    box-shadow: var(--shadow-glow);
+}
+
+.step-progress__dot.done {
+    border-color: var(--color-success);
+    color: var(--color-bg-primary);
+    background: var(--color-success);
+}
+
+.step-progress__label {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    display: none;
+}
+
+.step-progress__step.active .step-progress__label,
+.step-progress__step.done .step-progress__label {
+    display: inline;
+    color: var(--color-text-secondary);
+}
+
+.step-progress__connector {
+    width: 40px;
+    height: 2px;
+    background: var(--color-border);
+    transition: background var(--duration-normal) var(--ease-out);
+}
+
+.step-progress__connector.done {
+    background: var(--color-success);
+}
+
+
+/* ── Form Sections (Steps) ─────────────────────────────────── */
+.twin-form {
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.twin-form__section {
+    display: none;
+    animation: fadeSlideIn 0.4s var(--ease-out) both;
+}
+
+.twin-form__section.active {
+    display: block;
+}
+
+@keyframes fadeSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.twin-form__section-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-2);
+}
+
+.twin-form__section-desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-8);
+}
+
+
+/* ── Field Grid (2-column on desktop) ──────────────────────── */
+.field-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-5);
+}
+
+.field-grid .form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+
+/* ── Range Slider ──────────────────────────────────────────── */
+.range-group {
+    margin-bottom: var(--space-6);
+}
+
+.range-group__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-3);
+}
+
+.range-group__value {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-accent);
+    background: rgba(6, 214, 242, 0.08);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+}
+
+input[type="range"] {
+    width: 100%;
+    height: 6px;
+    appearance: none;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-full);
+    outline: none;
+    cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 0 10px var(--color-accent-glow);
+    cursor: pointer;
+    transition: transform var(--duration-fast) var(--ease-spring);
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border: none;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 0 10px var(--color-accent-glow);
+    cursor: pointer;
+}
+
+
+/* ── Toggle / Pill Select ──────────────────────────────────── */
+.pill-select {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+}
+
+.pill-select__option {
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-border);
+    background: transparent;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-out);
+}
+
+.pill-select__option:hover {
+    border-color: var(--color-accent);
+    color: var(--color-text-primary);
+}
+
+.pill-select__option.selected {
+    background: rgba(6, 214, 242, 0.12);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+}
+
+/* Hidden radio inside pill */
+.pill-select__option input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+/* ── Form Navigation ───────────────────────────────────────── */
+.twin-form__nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--space-10);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+}
+
+
+/* ── Summary Preview Card ──────────────────────────────────── */
+.twin-summary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+}
+
+.twin-summary__item {
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.twin-summary__label {
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-1);
+}
+
+.twin-summary__value {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+}
+
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .field-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .twin-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .step-progress__label {
+        display: none !important;
+    }
+
+    .step-progress__connector {
+        width: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .twin-page__title {
+        font-size: var(--font-size-2xl);
+    }
+}

@@ -1,0 +1,296 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}LifeTwin — Simulate Your Life, Predict Your Future{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/landing.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- ═══════════════════════════════════════════════════════════
+     HERO SECTION
+     ═══════════════════════════════════════════════════════════ -->
+<section class="hero fade-in" id="hero">
+    <!-- Background grid overlay -->
+    <div class="hero__grid" aria-hidden="true"></div>
+
+    <!-- Status badge -->
+    <div class="hero__badge">
+        <span class="hero__badge-dot"></span>
+        AI Engine Online
+    </div>
+
+    <!-- Headline -->
+    <h1 class="hero__title">
+        Simulate Your <span class="gradient-text" id="hero-typed">Decisions</span><br>
+        Predict Your Future
+    </h1>
+
+    <p class="hero__subtitle">
+        LifeTwin creates an AI-powered digital twin of you — simulate lifestyle choices
+        and see predicted outcomes before making real decisions.
+    </p>
+
+    <!-- CTAs -->
+    <div class="hero__actions">
+        <a href="/register/" class="btn btn-primary">
+            <i data-lucide="zap"></i>
+            Create Your Twin
+        </a>
+        <a href="/features/" class="btn btn-ghost">
+            <i data-lucide="play-circle"></i>
+            See How It Works
+        </a>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     STATS BAR
+     ═══════════════════════════════════════════════════════════ -->
+<section class="stats-bar fade-in" id="stats">
+    <div class="stat-item">
+        <div class="stat-item__value gradient-text" data-count="12500" data-suffix="+">0</div>
+        <div class="stat-item__label">Twins Created</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-item__value gradient-text" data-count="85000" data-suffix="+">0</div>
+        <div class="stat-item__label">Simulations Run</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-item__value gradient-text" data-count="94" data-suffix="%">0</div>
+        <div class="stat-item__label">Prediction Accuracy</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-item__value gradient-text" data-count="50" data-suffix="+">0</div>
+        <div class="stat-item__label">Lifestyle Parameters</div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     FEATURES GRID
+     ═══════════════════════════════════════════════════════════ -->
+<section class="landing-section fade-in" id="features-preview">
+    <div class="landing-section__header">
+        <div class="landing-section__overline">
+            <i data-lucide="sparkles"></i>
+            Core Capabilities
+        </div>
+        <h2 class="landing-section__title">
+            Everything You Need to <span class="gradient-text">Predict Tomorrow</span>
+        </h2>
+        <p class="landing-section__desc">
+            LifeTwin combines AI simulation, health modeling, and decision science
+            to give you a window into your future self.
+        </p>
+    </div>
+
+    <div class="features-grid">
+        <!-- Card 1 -->
+        <div class="feature-card glass-card fade-in fade-in-delay-1">
+            <div class="feature-card__icon">
+                <i data-lucide="cpu"></i>
+            </div>
+            <h3 class="feature-card__title">Digital Twin Creation</h3>
+            <p class="feature-card__desc">
+                Build an AI replica of yourself using health metrics, lifestyle habits, and personal data to create your
+                digital twin.
+            </p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="feature-card glass-card fade-in fade-in-delay-2">
+            <div class="feature-card__icon">
+                <i data-lucide="activity"></i>
+            </div>
+            <h3 class="feature-card__title">Decision Simulation</h3>
+            <p class="feature-card__desc">
+                Simulate sleep patterns, exercise routines, diet changes, and career moves — see how each affects your
+                future.
+            </p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="feature-card glass-card fade-in fade-in-delay-3">
+            <div class="feature-card__icon">
+                <i data-lucide="bar-chart-3"></i>
+            </div>
+            <h3 class="feature-card__title">Prediction Dashboard</h3>
+            <p class="feature-card__desc">
+                Visualize health scores, stress levels, and long-term trends with interactive charts powered by
+                real-time AI analysis.
+            </p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="feature-card glass-card fade-in fade-in-delay-4">
+            <div class="feature-card__icon">
+                <i data-lucide="shield-check"></i>
+            </div>
+            <h3 class="feature-card__title">Privacy First</h3>
+            <p class="feature-card__desc">
+                Your data stays yours. All simulations run securely and your personal twin data is encrypted end-to-end.
+            </p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     HOW IT WORKS
+     ═══════════════════════════════════════════════════════════ -->
+<section class="landing-section fade-in" id="how-it-works">
+    <div class="landing-section__header">
+        <div class="landing-section__overline">
+            <i data-lucide="route"></i>
+            How It Works
+        </div>
+        <h2 class="landing-section__title">
+            Three Steps to Your <span class="gradient-text">Future Self</span>
+        </h2>
+        <p class="landing-section__desc">
+            From sign-up to simulation results in under 2 minutes.
+        </p>
+    </div>
+
+    <div class="steps-track">
+        <!-- Step 1 -->
+        <div class="step-card glass-card fade-in fade-in-delay-1">
+            <div class="step-card__number">1</div>
+            <h3 class="step-card__title">Create Your Twin</h3>
+            <p class="step-card__desc">
+                Enter your age, weight, sleep hours, exercise level, and lifestyle habits to generate your digital twin.
+            </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step-card glass-card fade-in fade-in-delay-2">
+            <div class="step-card__number">2</div>
+            <h3 class="step-card__title">Run a Simulation</h3>
+            <p class="step-card__desc">
+                Choose a life decision — change your sleep, adjust your diet, ramp up exercise — and simulate the
+                impact.
+            </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step-card glass-card fade-in fade-in-delay-3">
+            <div class="step-card__number">3</div>
+            <h3 class="step-card__title">See Predictions</h3>
+            <p class="step-card__desc">
+                Get AI-generated health scores, stress predictions, and a visual breakdown of your future outcomes.
+            </p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SIMULATION PREVIEW
+     ═══════════════════════════════════════════════════════════ -->
+<section class="landing-section sim-preview fade-in" id="sim-preview">
+    <div class="landing-section__header">
+        <div class="landing-section__overline">
+            <i data-lucide="monitor"></i>
+            Live Preview
+        </div>
+        <h2 class="landing-section__title">
+            What a Simulation <span class="gradient-text">Looks Like</span>
+        </h2>
+    </div>
+
+    <div class="sim-preview__window glass-card" style="padding: 0;">
+        <!-- Fake browser toolbar -->
+        <div class="sim-preview__toolbar">
+            <span class="sim-preview__dot sim-preview__dot--red"></span>
+            <span class="sim-preview__dot sim-preview__dot--yellow"></span>
+            <span class="sim-preview__dot sim-preview__dot--green"></span>
+        </div>
+
+        <div class="sim-preview__content">
+            <!-- Left panel: Input -->
+            <div class="sim-preview__panel">
+                <div class="sim-preview__panel-title">Simulation Input</div>
+                <div class="sim-preview__metric">
+                    <span class="sim-preview__metric-label">Sleep Hours</span>
+                    <span class="sim-preview__metric-value" style="color: var(--color-warning);">5h → 7h</span>
+                </div>
+                <div class="sim-preview__metric">
+                    <span class="sim-preview__metric-label">Exercise</span>
+                    <span class="sim-preview__metric-value" style="color: var(--color-success);">2x → 5x/week</span>
+                </div>
+                <div class="sim-preview__metric">
+                    <span class="sim-preview__metric-label">Screen Time</span>
+                    <span class="sim-preview__metric-value" style="color: var(--color-accent);">8h → 4h</span>
+                </div>
+                <div class="sim-preview__metric">
+                    <span class="sim-preview__metric-label">Water Intake</span>
+                    <span class="sim-preview__metric-value" style="color: var(--color-accent-alt);">4 → 8 glasses</span>
+                </div>
+            </div>
+
+            <!-- Right panel: Predicted Results -->
+            <div class="sim-preview__panel">
+                <div class="sim-preview__panel-title">Predicted Outcome</div>
+
+                <div class="sim-preview__metric">
+                    <span class="sim-preview__metric-label">Health Score</span>
+                    <span class="sim-preview__metric-value" style="color: var(--color-success);">+23%</span>
+                </div>
+                <div class="sim-preview__bar">
+                    <div class="sim-preview__bar-fill" data-width="87%"></div>
+                </div>
+
+                <div class="sim-preview__metric" style="margin-top: var(--space-4);">
+                    <span class="sim-preview__metric-label">Stress Level</span>
+                    <span class="sim-preview__metric-value" style="color: var(--color-accent);">-34%</span>
+                </div>
+                <div class="sim-preview__bar">
+                    <div class="sim-preview__bar-fill" data-width="38%" style="background: var(--color-accent);"></div>
+                </div>
+
+                <div class="sim-preview__metric" style="margin-top: var(--space-4);">
+                    <span class="sim-preview__metric-label">Energy Level</span>
+                    <span class="sim-preview__metric-value" style="color: var(--color-warning);">+41%</span>
+                </div>
+                <div class="sim-preview__bar">
+                    <div class="sim-preview__bar-fill" data-width="72%" style="background: var(--color-warning);"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     CTA SECTION
+     ═══════════════════════════════════════════════════════════ -->
+<section class="cta-section fade-in" id="cta">
+    <div class="glass-card">
+        <h2 class="cta-section__title">
+            Ready to Meet Your <span class="gradient-text">Future Self</span>?
+        </h2>
+        <p class="cta-section__desc">
+            Create your digital twin in under 60 seconds and start simulating
+            decisions that shape your future.
+        </p>
+        <div class="hero__actions">
+            <a href="/register/" class="btn btn-primary">
+                <i data-lucide="rocket"></i>
+                Get Started Free
+            </a>
+            <a href="/about/" class="btn btn-ghost">
+                Learn More
+            </a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/landing.js' %}"></script>
+{% endblock %}
