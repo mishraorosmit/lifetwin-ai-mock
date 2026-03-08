@@ -81,19 +81,12 @@
             btn.classList.add('loading');
             btn.innerHTML = '<span>Running Simulation...</span>';
 
-            // Collect form data
-            var formData = new FormData(form);
-            var data = {};
-            formData.forEach(function (val, key) { data[key] = val; });
-
-            // Simulate API call delay, then redirect
+            // Brief visual delay, then submit the form to Django.
+            // Django runs the engine, saves the SimulationScenario, stores the
+            // result PK in session, then redirects to /simulation/result/.
             setTimeout(function () {
-                // In production this would be:
-                // LifeTwin.apiFetch('/simulation/simulate/', { method: 'POST', body: JSON.stringify(data) })
-                //   .then(r => r.json()).then(result => { window.location.href = '/simulation/result/'; });
-
-                window.location.href = '/simulation/result/';
-            }, 2200);
+                form.submit();
+            }, 800);
         });
     }
 
